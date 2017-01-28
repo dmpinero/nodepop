@@ -12,7 +12,7 @@ const anuncioSchema = mongoose.Schema({
 });
 
 // ponemos un método al schema
-anuncioSchema.statics.list = function(filter, limit, sort, cb) {
+anuncioSchema.statics.list = function (filter, limit, sort, cb) {
     const query = Anuncio.find(filter);
     query.limit(limit);
     query.sort(sort); // Criterio de ordenación

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const mensajesError = require('./i18n/i18nError');
+const localConfig = require('./config/localConfig');
 
 var index = require('./routes/index');
 
@@ -30,19 +31,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
-app.use('/apiv1/usuarios', require('./routes/apiv1/usuarios'));
-
+app.use('/api/anuncios', require('./routes/api/v1/anuncios'));
+app.use('/api/usuarios', require('./routes/api/v1/usuarios'));
+app.use('/api/tags', require('./routes/api/v1/tags'));
+app.use('/api/images/anuncios', require('./routes/api/v1/fotos'));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error(mensajesError(req, 'No encontrado'));
+app.use(function (req, res, next) {
+  var err = new Error(mensajesError(req, localConfig.errores.NOT_FOUND));
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
 
     res.status(err.status || 500);
 

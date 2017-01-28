@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=generated:* PORT=3002 nodemon ./bin/www",
-    "installDB": "./db/install_db.js"
+    "installDB": "node ./bin/install_db",
+    "jshint": "./node_modules/.bin/jshint ./routes/api/.",
+    "jscs": "./node_modules/.bin/jscs ./routes/api/."
   },
   "dependencies": {
+    "async": "^2.1.4",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -18,5 +21,9 @@
     "morgan": "~1.7.0",
     "password-hash": "^1.2.2",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.4"
   }
 }

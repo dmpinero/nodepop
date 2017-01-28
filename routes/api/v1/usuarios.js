@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,26 +7,26 @@ const router = express.Router();
 
 var passwordHash = require('password-hash');
 const jwt = require('jsonwebtoken');
-const localConfig = require('../../config/localConfig');
-const jwtAuth = require('../../lib/jwtAuth');
+const localConfig = require('../../../config/localConfig');
+const jwtAuth = require('../../../lib/jwtAuth');
 router.use(jwtAuth());
 
-const mensajesError = require('../../i18n/i18nError');
+const mensajesError = require('../../../i18n/i18nError');
 
 // Recuperar usuarios a través de la API
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
     Usuario.list(function (err, usuarios) {
         if (err) {
             res.json({sucess: false, error: err});
             return;
         }
-        return res.json({sucess: true, data: usuarios})
+        return res.json({sucess: true, data: usuarios});
     });
 });
 
-// Guardar un usuario a través de la API
-router.post('/', function(req, res, next) {
+// Registro de usuario a través de la API
+router.post('/', function (req, res, next) {
 
     // Crear objeto usuario
     var usuario = new Usuario(
@@ -49,30 +49,30 @@ router.post('/', function(req, res, next) {
 });
 
 // Borrar un usuario a través de la API
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
 
     const id = req.params.id;
-    Usuario.remove({_id: id}, function(err) {
+    Usuario.remove({_id: id}, function (err) {
         if (err) {
             return next(err);
         }
         return res.json({success: true});
-    })
+    });
 });
 
 // Borrar todos los usuarios a través de la API
-router.delete('/', function(req, res, next) {
+router.delete('/', function (req, res, next) {
 
-    Usuario.remove({}, function(err) {
+    Usuario.remove({}, function (err) {
         if (err) {
             return next(err);
         }
         return res.json({success: true});
-    })
+    });
 });
 
 // Autenticación de usuarios
-router.post('/authenticate', function(req, res) {
+router.post('/authenticate', function (req, res) {
     const userName = req.body.username;
     const password = req.body.password;
 
@@ -88,13 +88,13 @@ router.post('/authenticate', function(req, res) {
         }
         if (usuario.length === 0)
         {
-            return res.json({success: false, error:mensajesError(req, 'Nombre de usuario no válido')});
+            return res.json({success: false, error:mensajesError(req, localConfig.errores.INVALID_USERNAME)});
         }
 
         var clavesIguales = passwordHash.verify(password, usuario[0].clave);
 
         if (! clavesIguales) {
-            return res.json({success: false, error:mensajesError(req, 'Contraseña no válida')});
+            return res.json({success: false, error:mensajesError(req, localConfig.errores.INVALID_PASSWORD)});
         }
         const token = jwt.sign({_id: usuario[0]._id}, localConfig.jwt.secret, {
             expiresIn: localConfig.jwt.expiresIn

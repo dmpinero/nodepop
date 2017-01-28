@@ -10,12 +10,12 @@ const usuarioSchema = mongoose.Schema({
 });
 
 // ponemos un método al schema
-usuarioSchema.statics.list = function(cb) {
+usuarioSchema.statics.list = function (cb) {
     Usuario.find().exec(cb);
 };
 
 // ponemos un método al schema
-usuarioSchema.statics.listUser = function(filter, cb) {
+usuarioSchema.statics.listUser = function (filter, cb) {
     const query = Usuario.find(filter);
     query.exec(cb); // Hay que poner exec para que ejecuta la consulta sobre el objeto query que es lo que devuelve find
 };
