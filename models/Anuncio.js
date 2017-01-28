@@ -12,8 +12,11 @@ const anuncioSchema = mongoose.Schema({
 });
 
 // ponemos un método al schema
-anuncioSchema.statics.list = function(cb) {
-    Anuncio.find().exec(cb);
+anuncioSchema.statics.list = function(filter, limit, sort, cb) {
+    const query = Anuncio.find(filter);
+    query.limit(limit);
+    query.sort(sort); // Criterio de ordenación
+    query.exec(cb); // Hay que poner exec para que ejecuta la consulta sobre el objeto query que es lo que devuelve find
 };
 
 // Crear el modelo

@@ -9,12 +9,33 @@ const router = express.Router();
 router.get('/', function(req, res, next) {
 
     // Recoger datos de querystring para aplicar filtros
-    const tag = req.query.tags;
+    const tags = req.query.tags;
     const venta = req.query.venta;
     const precio = req.query.precio;
     const nombre = req.query.nombre;
 
-    Anuncio.list(function (err, anuncios) {
+    const limit = parseInt(req.query.limit);
+    const sort = req.query.sort;
+
+    // Filtros. Originalmente está vacío
+    const filter = {};
+
+    // Sólo metemos el nombre en el filtro si viene informado
+    if (tags) {
+        filter.tags = tags;
+    }
+
+    // Sólo metemos el nombre en el filtro si viene informado
+    if (venta) {
+        filter.venta = venta;
+    }
+
+    // Sólo metemos el nombre en el filtro si viene informado
+    if (nombre) { // Nombre comienza por la expresión buscada
+        filter.nombre = new RegExp('^' + nombre, "i");
+    }
+
+    Anuncio.list(filter, limit, sort, function (err, anuncios) {
         if (err) {
             res.json({sucess: false, error: err});
             return;

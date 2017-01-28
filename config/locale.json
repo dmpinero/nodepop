@@ -1,0 +1,19 @@
+{
+  "Token no proporcionado": {
+    "en": "Token not found"
+  },
+  "Token no válido": {
+    "en": "Invalid token"
+  },
+  "No encontrado": {
+    "en": "Not Found"
+  },
+  "Nombre de usuario no válido":
+  {
+    "en": "Invalid username"
+  },
+
+  "Contraseña no válida": {
+    "en": "Invalid password"
+  }
+}

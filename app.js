@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const mensajesError = require('./i18n/i18nError');
 
 var index = require('./routes/index');
 
@@ -32,9 +33,10 @@ app.use('/', index);
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 app.use('/apiv1/usuarios', require('./routes/apiv1/usuarios'));
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error(mensajesError(req, 'No encontrado'));
   err.status = 404;
   next(err);
 });
