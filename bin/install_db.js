@@ -25,9 +25,9 @@ async.series([
 
     function (callback) {
         Anuncio.remove({}, function (err) {
-            console.log('Borrando tabla ANUNCIOS');
+            console.log('Borrando tabla Anuncios');
             if (err) {
-                console.error('Error borrando tabla ANUNCIOS: ', err);
+                console.error('Error borrando tabla Anuncios: ', err);
                 return callback(err);
             }
             callback(null, 'BajaAnuncios');
@@ -36,9 +36,9 @@ async.series([
 
     function (callback) {
         Usuario.remove({}, function (err) {
-            console.log('Borrando tabla USUARIOS');
+            console.log('Borrando tabla Usuarios');
             if (err) {
-                console.error('Error borrando tabla USUARIOS ', err);
+                console.error('Error borrando tabla Usuarios ', err);
                 return callback(err);
             }
             callback(null, 'BajaUsuarios');
@@ -53,7 +53,7 @@ async.series([
             }
             try {
                 data = JSON.parse(data);
-                console.log('data:', data);
+                //console.log('data:', data);
             } catch (e) {
                 return callback(e);
             }
@@ -97,7 +97,7 @@ async.series([
         console.log(results);
         conn.close();
 
-        console.log('--------------------------------------------');
-        console.log('Instalacion con éxito de los datos de prueba de Nodepop!!');
+        console.log('');
+        console.log('Instalacion con éxito de los datos Nodepop!!');
     }
 );

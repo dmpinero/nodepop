@@ -10,7 +10,6 @@ function internacionalizarError(req, error) {
 
     // Internacionalización
     var config = {
-        //"lang": "es",
         "lang": lenguaje,
         "langFile": "../../config/locale.json" //relative path to index.js file of i18n-nodejs module
     }

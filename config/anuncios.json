@@ -8,10 +8,10 @@
       "tags": [ "lifestyle", "motor"]
     },
     {
-      "nombre": "iPhone 3GS",
+      "nombre": "iPhone 7",
       "venta": false,
-      "precio": 50.00,
-      "foto": "iphone.png",
+      "precio": 650.00,
+      "foto": "iphone.jpg",
       "tags": [ "lifestyle", "mobile"]
     }
   ]
